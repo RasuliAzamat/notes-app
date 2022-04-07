@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partial/head-tags.ejs') %>
+    </head>
+    <body>
+        <h1>All notes</h1>
+
+        <br />
+        <% if (notes.length) { %> <% notes.forEach(({ id, title, text, createdAt
+        }) => { %>
+        <hr />
+        <div>
+            <h3><%= title %> <a href="/notes/<%= id %>">(<%= id %>)</a></h3>
+            <p><%= text %></p>
+            <em><%= new Date(createdAt).toLocaleDateString() %></em>
+            <button data-id="<%= id %>">Delete</button>
+        </div>
+        <hr />
+        <% }) %> <% } else { %>
+        <p>Empty</p>
+        <% } %>
+        <br />
+
+        <a href="/">Home page</a>
+
+        <hr />
+
+        <a href="/add">Add note</a>
+
+        <script>
+            document.addEventListener('click', event => {
+                const target = event.target.dataset.id || null
+
+                if (target) {
+                    fetch(`/notes/${target}`, { method: 'delete' })
+                        .then(() => window.location.reload())
+                        .catch(err => console.log(err))
+                }
+            })
+        </script>
+    </body>
+</html>

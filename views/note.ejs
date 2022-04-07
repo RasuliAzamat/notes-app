@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partial/head-tags.ejs') %>
+        <style>
+            p {
+                font-size: 1.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <br />
+        <hr />
+        <div>
+            <h1><%= note.title %> <span>(<%= note.id %>)</span></h1>
+            <p><%= note.text %></p>
+            <em><%= new Date(note.createdAt).toLocaleDateString() %></em>
+            <button data-id="<%= note.id %>">Delete</button>
+            <a href="/edit/<%= note.id %>">Edit</a>
+        </div>
+        <hr />
+        <br />
+
+        <a href="/notes">All notes</a>
+
+        <script>
+            document.addEventListener('click', event => {
+                const target = event.target.dataset.id || null
+
+                if (target) {
+                    fetch(`/notes/${target}`, { method: 'delete' })
+                        .then(() => (window.location.href = '/notes'))
+                        .catch(err => console.log(err))
+                }
+            })
+        </script>
+    </body>
+</html>

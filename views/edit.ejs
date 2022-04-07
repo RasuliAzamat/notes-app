@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partial/head-tags.ejs') %>
+    </head>
+    <body>
+        <h1>Add note</h1>
+
+        <br />
+        <form action="/edit/<%= note.id %>" method="post">
+            <div>
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Enter title"
+                    value="<%= note.title %>"
+                />
+            </div>
+            <div>
+                <textarea
+                    name="text"
+                    cols="30"
+                    rows="10"
+                    placeholder="Enter text"
+                >
+<%= note.text %></textarea
+                >
+            </div>
+
+            <button type="submit">Edit</button>
+        </form>
+        <br />
+
+        <a href="/">Home page</a>
+
+        <hr />
+
+        <a href="/notes">All notes</a>
+    </body>
+</html>
